@@ -136,7 +136,7 @@ header .mdl-layout__header-row {
 }
 
 .mdl-card__supporting-text {
-  padding: 8px 9px;
+  padding: 6px 9px;
   padding-bottom: 0px;
 }
 
@@ -182,6 +182,9 @@ div.mdl-layout__drawer.information-drawer.is-visible span.close-x {
 div.mdl-layout__drawer.information-drawer .mdl-card__supporting-text{
   color: white;
 }
+div.mdl-layout__drawer.information-drawer .mdl-card__supporting-text img{
+  width: 100%;
+}
 
 #settings-ui-section, #settings-ui-section ul, #settings-ui-section ul li button {
   width: 100%;
@@ -208,6 +211,10 @@ div.mdl-layout__drawer.information-drawer .mdl-card__supporting-text{
 .mdl-layout__tab-panel div.mdl-grid div.mdl-cell {
   margin-top: 12px;
   margin-bottom: 0px;
+}
+
+.mdl-layout__tab-panel div.mdl-grid div.mdl-cell.chart-container{
+  margin-top: 5px;
 }
 
 .find-device-container {
@@ -349,8 +356,9 @@ ul.train-count-list li.count-item {
 
 #getTrueButton, #getFalseButton {
   width: calc(100% - 12px);
-  padding-left: 0px;
+  padding-left: 10px;
   padding-right: 20px;
+  text-align: left;
 }
 
 #getTrueButton, #getFalseButton, #mirrorButton, #magnetTestButton, .mdl-layout__tab-panel .neural-network-settings ul.mdl-list .mdl-button {
@@ -394,7 +402,7 @@ ul.mdl-list.get-true-list, ul.mdl-list.get-false-list {
 }
 
 .neural-card.mdl-card__supporting-text ul.mdl-list li {
-  min-height: 68px;
+  min-height: 65px;
 }
 
 .neural-card #numTrueData, .neural-card #numFalseData {
@@ -498,6 +506,7 @@ header .mdl-layout__tab-bar-container, #settingsPageButton, #dataPageButton {
 
 #info {
   font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .footer-links a {

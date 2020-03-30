@@ -77,16 +77,21 @@
                 <div class="mdl-card__supporting-text">
 <h3>BASIC USE</h3>
 <p><b>1:</b> Wear smartphone around the neck as close to the face (high up) as is comfortable.</p>
-<p><b>2:</b> Wear a strong magnet on one or both wrists.</p>
+<p><b>2:</b> Wear a strong magnet on the <b>bottom</b> of one or both wrists.</p>
+<img src="/assets/images/photo_wrist_magnets.jpg" alt="photo magnet on wrist">
 <p><b>3:</b> Use a mirror to view phone (press "MIRROR") or use a webcam to view phone.</p>
 <p><b>4:</b> Press "ADD OFF TARGET" while wrist(s) is *away* from face. Wait for 100 samples to collect.</p>
+<img src="/assets/images/collect_false_photo.jpg" alt="photo collect off face">
 <p><b>5:</b> Touch (clean) hand to face in a naturalistic manner so that magnet approaches phone. Press "ADD ON TARGET" while your hand is touching the face. Move hand around to different positions on your face as 100 data samples are collected. You want to capture as many possible face touching gestures as possible.</p>
+<img src="/assets/images/collect_true_photo.jpg" alt="photo collect on face">
 <p><b>6:</b> Once 100 samples of on and off-target data are collected an LSTM (Long Short-Term Memory) RNN (Recursive Neural Network) model will be trained to classify (detect) the face touching gestures captured in the "on target" training data.</p>
+<img src="/assets/images/detect_photo.jpg" alt="photo detect face touches">
 <br/>
 <h2>SETTINGS</h2>
 <p>*You can toggle vibration and audio alerts in the settings page.</p><br/>
 
-<p>*To test a magnet, place phone on a flat surface and press "TEST MAGNET" while no magnet is close to the phone. Approach the phone with a magnet. Observe the distance of the magnet from phone when the "TEST MAGNET" button turns from red to green. This is the maximum range of the magnet. If the distance from the magnet on your wrist to the phone around your neck exceeds this maximum range the app may fail to detect a face touch. The test displays the net change in EM field strength. The range threshold is about 10 microteslas (uT).</p><br/> 
+<p>*To test a magnet, place phone on a flat surface and press "TEST MAGNET" while no magnet is close to the phone. Approach the phone with a magnet. Observe the distance of the magnet from phone when the "TEST MAGNET" button turns from red to green. This is the maximum range of the magnet. If the distance from the magnet on your wrist to the phone around your neck exceeds this maximum range the app may fail to detect a face touch. The test displays the net change in EM field strength. The range threshold is about 10 microteslas (uT).</p>
+<img src="/assets/images/test-magnet_photo.jpg" alt="photo test magnet"><br/><br/> 
 
 <p>*If you don't have any magnets you can still try out the app by using the accelerometer "phone on arm/hand" setting. Attach phone to arm or hold in hand and pretend to touch your face (or do so with clean hands). Gather ON target data while touching face. Move arm around in a variety of ways while gathering OFF target data (Egyptian epileptic snake dance is best).</p><br/>
 
@@ -330,7 +335,7 @@
             </div>
 
             <!-- SMOOTHIE CHART STREAMING SENSOR DATA VISUALIZATION -->
-            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone chart-container">
                 <div class="mdl-card mdl-shadow--2dp data-visualization">
                     <div class="mdl-card__title">
                         <span id="graph-title" class="text-color--gray">Streaming Data</span>

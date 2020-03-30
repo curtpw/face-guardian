@@ -482,7 +482,7 @@ function detectionModel() {
         }
 
         /************************** AUTOMATED TRAINING THRESHOLDS ***********************************/
-        if (app.trainingDataTrue.length > 50 && app.trainingDataFalse.length > 50) {
+        if (app.trainingDataTrue.length > 100 && app.trainingDataFalse.length > 100) {
             enableButton("trainButton");
         }
 
@@ -515,7 +515,7 @@ function detectionModel() {
                 ]);
             }
 
-            console.log("values[0]: " + values[0] + "\tvalues[1]: " + values[1]);
+        //    console.log("values[0]: " + values[0] + "\tvalues[1]: " + values[1]);
 
             //from 0-1 to 0-100%
             app.latestScore = app.latestScore * 100;
@@ -693,7 +693,7 @@ function detectionModel() {
             var numIterations = 2000;
             var numRate = 0.06;
             var numError = 0.20;
-            var numLogInterval = 100;
+            var numLogInterval = 110;
             var numScheduleInterval = 100;
 
             //display training spinner overlay
@@ -701,6 +701,9 @@ function detectionModel() {
 
             //timeout allows training splash screen to load
             setTimeout(function() {
+
+            	app.trainFlag = false;
+
                 app.trainer.train(trainingData, {
                     rate: numRate,
                     iterations: numIterations,
@@ -725,13 +728,10 @@ function detectionModel() {
                 app.trainFlag = false;
 
                 //hide training spinner overlay
-                $(".loader").hide();
-
-                //hide train button progress bar
-                $("#training-progress").hide();
+                $(".splash-training").hide();
 
                 //clear data history to remove detection artifact
-                app.magHistory = [];
+                //app.magHistory = [];
 
                 //clear data
                 //  app.trainingDataTrue = [];
@@ -740,7 +740,7 @@ function detectionModel() {
                 //  app.trainingDataFalse = [];
                 //  $("#numFalseData").attr( "data-badge", 0 );
 
-            }, 300);
+            }, 100);
         }
     } 
 }
@@ -766,9 +766,9 @@ function processData() {
         app.magNormal[2] = (Math.min(Math.max(app.lastMagReading.z, -179), 179) + 180) / 360;
 
         //delta values using delayed averages
-        app.magDelta[0] = Math.abs(magNormal[0] - (Math.min(Math.max(magAvDelayed[0], -179), 179) + 180) / 360);
-        app.magDelta[1] = Math.abs(magNormal[1] - (Math.min(Math.max(magAvDelayed[1], -179), 179) + 180) / 360);
-        app.magDelta[2] = Math.abs(magNormal[2] - (Math.min(Math.max(magAvDelayed[2], -179), 179) + 180) / 360);
+        app.magDelta[0] = Math.abs(app.magNormal[0] - (Math.min(Math.max(app.magAvDelayed[0], -179), 179) + 180) / 360);
+        app.magDelta[1] = Math.abs(app.magNormal[1] - (Math.min(Math.max(app.magAvDelayed[1], -179), 179) + 180) / 360);
+        app.magDelta[2] = Math.abs(app.magNormal[2] - (Math.min(Math.max(app.magAvDelayed[2], -179), 179) + 180) / 360);
     } else {
 
 
