@@ -192,6 +192,8 @@ function initGenericSensorAPI() {
 
                 } else {
                     console.log('Accelerometer throw error');
+
+                    errorSplash.style.display = 'block';
                     throw error;
                 }
             }
@@ -257,6 +259,8 @@ function initGenericSensorAPI() {
                 	errorSplash.style.display = 'block';
                 } else {
                     console.log('magnetometer throw error');
+
+                    errorSplash.style.display = 'block';
                     throw error;
                 }
             }
