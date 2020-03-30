@@ -766,9 +766,17 @@ function processData() {
         app.magNormal[2] = (Math.min(Math.max(app.lastMagReading.z, -179), 179) + 180) / 360;
 
         //delta values using delayed averages
+        //USING ABSOLUTE VALUE: abs( current[0 to 1] - old[0 to 1])
+        /*
         app.magDelta[0] = Math.abs(app.magNormal[0] - (Math.min(Math.max(app.magAvDelayed[0], -179), 179) + 180) / 360);
         app.magDelta[1] = Math.abs(app.magNormal[1] - (Math.min(Math.max(app.magAvDelayed[1], -179), 179) + 180) / 360);
         app.magDelta[2] = Math.abs(app.magNormal[2] - (Math.min(Math.max(app.magAvDelayed[2], -179), 179) + 180) / 360);
+        */
+
+        //USING ADD AND DIVIDE: ( current[0 to 1] - old[0 to 1] + 1) / 2
+        app.magDelta[0] = (app.magNormal[0] - (Math.min(Math.max(app.magAvDelayed[0], -179), 179) + 180) / 360 + 1) / 2;
+        app.magDelta[1] = (app.magNormal[1] - (Math.min(Math.max(app.magAvDelayed[1], -179), 179) + 180) / 360 + 1) / 2;
+        app.magDelta[2] = (app.magNormal[2] - (Math.min(Math.max(app.magAvDelayed[2], -179), 179) + 180) / 360 + 1) / 2;
     } else {
 
 
@@ -855,10 +863,17 @@ app.alertDetect = function() {
         console.log("app.betweenDetectionsFlag: " + app.betweenDetectionsFlag + "\t" + "app.betweenDetectionsFalseIntervalFlag: " + app.betweenDetectionsFalseIntervalFlag);
         if (app.betweenDetectionsFlag == false && app.betweenDetectionsFalseIntervalFlag == true) {
 
+        	//this flag delays further detection so we don't double count
             app.betweenDetectionsFlag = true;
+
+            //add to the face touch count
             app.detectionCount++;
+
             //update detection event count display
             $(".countValueLabel").html(app.detectionCount);
+
+            //remove most recent data so our averages stay representative of no touching face values
+            app.magHistory = app.magHistory.slice(Math.round(app.magHistory.length / 10), app.magHistory.length);
 
             //phone vibration motor activated
             if ($(".vibration-checkbox-label").hasClass("is-checked")) {
