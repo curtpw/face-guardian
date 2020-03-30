@@ -1,0 +1,29 @@
+{
+  "name": "com.cmi.faceguardian",
+  "displayName": "Face Guardian",
+  "version": "1.0.2",
+  "description": "Use your phone's compass and a magnet on your wrist to detect face touching.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "cordova": "^8.0.0",
+    "cordova-android": "^8.0.0",
+    "cordova-plugin-device-motion": "^2.0.1",
+    "cordova-plugin-magnetometer": "^1.0.0",
+    "cordova-plugin-vibration": "^3.1.0"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-device-motion": {},
+      "cordova-plugin-magnetometer": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  }
+}

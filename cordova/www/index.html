@@ -1,0 +1,408 @@
+<!doctype html>
+
+<!-- ***** Face Guardian ***** -->
+<!-- Curt White @ Child Mind Institute MATTER Lab https://matter.childmind.org/ -->
+<!-- code: https://github.com/curtpw/face-guardian -->
+
+<html>
+<head>
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no,
+		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Face Guardian</title>
+
+
+
+    <!-- inject:css -->
+
+    <!-- UI kit styles -->
+    <link rel="stylesheet" href="assets/css/lib/getmdl-select.min.css">
+
+    <!-- theme styles -->
+    <link rel="stylesheet" href="assets/css/application.css">
+
+    <!-- roboto fonts -->
+    <link rel="stylesheet" href="assets/fonts/roboto.css">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="custom.css">
+
+    <!-- endinject -->
+
+    <script>
+		// Redirect console.log to E Workbench.
+		if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+
+    <!-- HTML5 audio for alert sound -->
+    <audio id="audio-alert" loop preload="auto">
+        <source src="assets/audio/beep.mp3" type="audio/mpeg">
+    </audio>
+
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+  <!--  <body ontouchstart="" > -->
+
+<!-- overlays for launch and neural network model training -->
+<div class="splash-launch splash"></div>
+<div class="splash-training splash"></div>
+
+<!-- <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header mdl-layout--fixed-tabs"> -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
+    <header class="mdl-layout__header">
+
+        <div class="mdl-layout__header-row">
+            <div id="title-text" class="mdl-layout-spacer title-text">FACE GUARDIAN</div>
+        </div>
+                    <!-- Tabs -->
+            <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+              <a href="#fixed-tab-settings" id="settingsPageButton" class="mdl-layout__tab">Settings</a>
+              <a href="#fixed-tab-data" id="dataPageButton" class="mdl-layout__tab is-active">&nbsp;&nbsp;Detect Face Touch&nbsp;&nbsp;</a>
+            </div>
+    </header> 
+
+    <div class="mdl-layout__drawer information-drawer">
+        <header class="mdl-layout__drawer-header--full">info <span class="close-x">&nbsp;&nbsp;X&nbsp;&nbsp;</span></header>
+        <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+            <div class="mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__supporting-text">
+<h3>BASIC USE</h3>
+<p><b>1:</b> Wear smartphone around the neck as close to the face (high up) as is comfortable.</p>
+<p><b>2:</b> Wear a strong magnet on the <b>bottom</b> of one or both wrists.</p>
+<img src="assets/images/photo_wrist_magnets.jpg" alt="photo magnet on wrist">
+<p><b>3:</b> Use a mirror to view phone (press "MIRROR") or use a webcam to view phone.</p>
+<p><b>4:</b> Press "ADD OFF TARGET" while wrist(s) is *away* from face. Wait for 100 samples to collect.</p>
+<img src="assets/images/collect_false_photo.jpg" alt="photo collect off face">
+<p><b>5:</b> Touch (clean) hand to face in a naturalistic manner so that magnet approaches phone. Press "ADD ON TARGET" while your hand is touching the face. Move hand around to different positions on your face as 100 data samples are collected. You want to capture as many possible face touching gestures as possible.</p>
+<img src="assets/images/collect_true_photo.jpg" alt="photo collect on face">
+<p><b>6:</b> Once 100 samples of on and off-target data are collected an LSTM (Long Short-Term Memory) RNN (Recursive Neural Network) model will be trained to classify (detect) the face touching gestures captured in the "on target" training data.</p>
+<img src="assets/images/detect_photo.jpg" alt="photo detect face touches">
+<br/>
+<h2>SETTINGS</h2>
+<p>*You can toggle vibration and audio alerts in the settings page.</p><br/>
+
+<p>*To test a magnet, place phone on a flat surface and press "TEST MAGNET" while no magnet is close to the phone. Approach the phone with a magnet. Observe the distance of the magnet from phone when the "TEST MAGNET" button turns from red to green. This is the maximum range of the magnet. If the distance from the magnet on your wrist to the phone around your neck exceeds this maximum range the app may fail to detect a face touch. The test displays the net change in EM field strength. The range threshold is about 10 microteslas (uT).</p>
+<img src="assets/images/test-magnet_photo.jpg" alt="photo test magnet"><br/><br/> 
+
+<p>*If you don't have any magnets you can still try out the app by using the accelerometer "phone on arm/hand" setting. Attach phone to arm or hold in hand and pretend to touch your face (or do so with clean hands). Gather ON target data while touching face. Move arm around in a variety of ways while gathering OFF target data (Egyptian epileptic snake dance is best).</p><br/>
+
+<p>*"Delta" data refers to classification between relative changes in EM field strength vs "Absolute" which refers to classification between discrete EM field strength measurements. "Absolute" will only work if you always face in the same direction as you did when you gathered training data. This is because of Earth's magnetic field. "Absolute" data setting is not very practical but it requires a less powerful magnet an provides a clean looking demo.</p><br/> 
+<a class="mdl-navigation__link github-link" href="https://github.com/curtpw/face-guardian" style="color:white;">
+    <i class="material-icons" role="presentation">link</i>
+    GitHub
+</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <main class="mdl-layout__content">
+        <div class="mdl-layout__tab-panel" id="fixed-tab-settings">
+        <div class="mdl-grid">
+
+            <!-- UI Buttons-->
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                <div class="mdl-card mdl-shadow--2dp ui-buttons ui-toggles hand-card">
+                    <div class="mdl-card__title">
+                        <span class="text-color--gray">Sensor Selection Settings</span>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+
+                    	<div class="ui-section pull-left sensor-option-container"> 
+
+                            <ul class="mdl-list pull-left">
+                                <li class="mdl-list__item">
+                                    <label class="option-magnetometer-select mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-radio--colored-light-blue is-checked" for="option-magnetometer">
+                                        <input type="radio" id="option-magnetometer" class="mdl-radio__button" name="sensor-options" value="1" checked>
+                                        <i class="material-icons">person</i>
+                                        <span class="mdl-radio__label">Phone on neck<span class="sensor-type-label">&nbsp;&nbsp;magnetometer</span></span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <ul class="mdl-list pull-left">
+                                <li class="mdl-list__item">
+                                    <label class="option-accelerometer-select mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-radio--colored-light-blue" for="option-accelerometer">
+                                        <input type="radio" id="option-accelerometer" class="mdl-radio__button" name="sensor-options" value="2">
+                                        <i class="material-icons">pan_tool</i>
+                                        <span class="mdl-radio__label">Phone on Arm<span class="sensor-type-label">&nbsp;&nbsp;accelerometer</span></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                <div class="mdl-card mdl-shadow--2dp ui-buttons ui-toggles target-card">
+                    <div class="target-settings-label mdl-card__title">
+                        <span class="text-color--gray">Alert Settings</span><span id="target-count-warning" class='text-color--red'>Max 2 Targets</span>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+
+                        <div class="ui-section pull-left target-sensitivity-container">
+                        <!-- Slider with Starting Value -->
+                        <p class="sensitivity-label">Sensitivity: <span>medium</span></p>
+                        <input id="sensitivity-slider" class="mdl-slider mdl-js-slider" type="range" min="0" max="4" value="2" tabindex="0" oninput="app.onSetSensitivity()">
+
+                        </div>
+
+                         <div class="ui-section pull-left target-option-container">
+                            <ul class="mdl-list">
+                                <li class="vibration-list-item mdl-list__item pull-left">
+                                    <label id="label-checkbox-1" class="vibration-checkbox-label mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-checkbox--colored-yellow" for="checkbox-1">
+                                        <input type="checkbox" id="checkbox-1" class="vibration-checkbox checkbox-1 target-position mdl-checkbox__input current-checked" name="front-head" code="1" checked>
+                                        <i class="material-icons">vibration</i>
+                                        <span class="mdl-checkbox__label">Vibration</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <ul class="mdl-list">
+                                <li class="audio-list-item mdl-list__item pull-right">
+                                    <label id="label-checkbox-2" class="audio-checkbox-label mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-checkbox--colored-yellow" for="checkbox-2">
+                                        <input type="checkbox" id="checkbox-2" class="audio-checkbox checkbox-2 target-position mdl-checkbox__input" name="side-head" code="2">
+                                        <i class="material-icons">audiotrack</i>
+                                        <span class="mdl-checkbox__label">Audio</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                <div class="mdl-card mdl-shadow--2dp ui-buttons ui-toggles data-card">
+                    <div class="mdl-card__title">
+                        <span class="text-color--gray">Data Setting</span>
+                    </div> 
+                    <div class="mdl-card__supporting-text">
+
+                        <div class="ui-section pull-left data-option-container"> 
+                            <ul class="mdl-list pull-left">
+                                <li class="mdl-list__item">
+                                    <label class="delta-data-option mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-radio--colored-light-blue is-checked" for="option-delta">
+                                        <input type="radio" id="option-delta" class="mdl-radio__button" name="data-options" value="2" checked>
+                                        <span class="mdl-radio__label"><i class="data-symbol">&#916;</i>&nbsp;Delta</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <ul class="mdl-list pull-right">
+                                <li class="mdl-list__item">
+                                    <label class="smoothed-data-option mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-radio--colored-light-blue" for="option-smooth">
+                                        <input type="radio" id="option-smooth" class="mdl-radio__button" name="data-options" value="1">
+                                        <span class="mdl-radio__label"><i class="data-symbol">&#9633;</i>&nbsp;Absolute&nbsp;</span>
+                                    </label>
+                                </li> 
+                            </ul>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- UI Buttons-->
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                <div class="mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__supporting-text comms-card">
+
+                        <div id="settings-ui-section" class="ui-section pull-left">
+                            <ul class="mdl-list pull-left">
+                                <li class="mirror-button mdl-list__item">
+                                    <button id="mirrorButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-blue" onclick="app.onMirrorButton()">
+                                        <i class="material-icons">autorenew</i>
+                                        Mirror<div class="mirror-label-mirrored">&nbsp;Mirror&nbsp;</div>
+                                        <div class="mdl-layout-spacer"></div>
+                                    </button>
+                                </li>
+                                <li class="test-magnet-button mdl-list__item">
+                                    <button id="magnetTestButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-blue" onclick="app.onMagnetTestButton()">
+                                        <i class="material-icons">network_check</i>
+                                        Test Magnet
+                                        <div class="mdl-layout-spacer"></div>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer-->
+            <!--
+            <div class="footer-links mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+
+                <a class="mdl-navigation__link matter-link" href="https://matter.childmind.org/">
+                    <i class="material-icons" role="presentation">link</i>
+                    CMI MATTER Lab
+                </a>
+                <a class="mdl-navigation__link github-link" href="https://github.com/CreativeIT/getmdl-dashboard">
+                    <i class="material-icons" role="presentation">link</i>
+                    GitHub
+                </a>
+            </div>
+        -->
+
+
+
+
+		</div>
+	</div>
+
+    <div class="mdl-layout__tab-panel is-active" id="fixed-tab-data">
+        <div class="mdl-grid">
+
+
+
+        	<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+                <div class="mdl-card mdl-shadow--2dp ui-buttons ui-toggles neural-network-settings">
+                    <div class="mdl-card__supporting-text neural-card">
+
+
+                        <div class="ui-section pull-left">
+                            <ul class="mdl-list pull-left get-true-list">
+                                <li class="mdl-list__item">
+                                    <button id="getTrueButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-blue" onclick="app.onGetTrueButton()" disabled>
+                                    <!--    <i class="material-icons">thumb_down_alt</i>  -->
+                                        Add On Face
+                                        <div class="mdl-layout-spacer"></div>
+                                    </button>
+                                    <div id="numTrueData" class="material-icons mdl-badge mdl-badge--overlap" data-badge="0" disabled></div>
+                                </li>
+                            </ul>
+                            <ul class="mdl-list pull-right">
+                                <li class="mdl-list__item">
+                                    <button id="clearTrueButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-red" onclick="app.onClearTrueButton()" disabled>
+                                        <i class="material-icons">delete_sweep</i>
+                                    <!--    Clear  -->
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ui-section pull-left">
+                            <ul class="mdl-list pull-left get-false-list">
+                                <li class="mdl-list__item">
+                                    <button id="getFalseButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-blue" onclick="app.onGetFalseButton()" disabled>
+                                    <!--    <i class="material-icons">thumb_up_alt</i>  -->
+                                        Add Off Face
+                                        <div class="mdl-layout-spacer"></div>
+
+                                    </button>
+                                    <div id="numFalseData" class="material-icons mdl-badge mdl-badge--overlap" data-badge="0" disabled></div>
+                                </li>
+                            </ul>
+                            <ul class="mdl-list pull-right">
+                                <li class="mdl-list__item">
+                                    <button id="clearFalseButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-red" onclick="app.onClearFalseButton()" disabled>
+                                        <i class="material-icons">delete_sweep</i>
+                                   <!--     Clear   -->
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ui-section pull-left"> 
+                            <ul class="mdl-list pull-left train-count-list">
+                                <li class="mdl-list__item train-item">
+                                    <button id="trainButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-yellow" onclick="app.onTrainButton()"  disabled>
+                                        <i class="material-icons">school</i>
+                                        Train
+                                        <div class="mdl-layout-spacer"></div>
+                                    </button>
+                                </li>
+                                <li class="mdl-list__item count-item">
+                                    <div id="detectionCount" class="mdl-button">
+                                        <div class="countButtonLabel">TOUCH COUNT</div>
+                                        <div class="countValueLabel">0</div>
+                                        <div class="mdl-layout-spacer"></div>
+                                    </div>
+                                </li> 
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- SMOOTHIE CHART STREAMING SENSOR DATA VISUALIZATION -->
+            <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone chart-container">
+                <div class="mdl-card mdl-shadow--2dp data-visualization">
+                    <div class="mdl-card__title">
+                        <span id="graph-title" class="text-color--gray">Streaming Data</span>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+						<div id="streaming-data-chart-wrapper"><canvas id="streaming-data-chart" width="330" height="175"></canvas></div>
+ 						<div class="mdl-layout-spacer"></div>
+
+                        <div class="ui-section pull-left">
+                        	<!-- Console Messages -->
+							<p id="info">Not Connected</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+           
+
+
+</div> <!-- tab control end -->
+
+
+        </div>
+    </main>
+
+</div>
+
+
+
+
+
+</body>
+
+    <!-- inject:js -->
+
+    <!-- hybrid app framework -->
+	<script src="cordova.js"></script>
+
+    <!-- tooling -->
+    <script type="text/javascript" src="assets/js/libs/jquery/jquery.js"></script>
+
+    <!-- cordova wrapper middleware -->
+	<script type="text/javascript" src="assets/js/libs/evothings/evothings.js"></script>
+
+    <!-- UI kit -->
+    <script type="text/javascript" src="assets/js/material.min.js"></script>
+
+    <!-- neural networks -->
+    <script type="text/javascript" src="assets/js/libs/synaptic/synaptic.js"></script>
+
+    <!-- charting -->
+    <script type="text/javascript" src="assets/js/libs/smoothie/smoothiex.js"></script> 
+
+     <script>
+ //dynamic HTML5 canvas height adjustment
+  var ctx = document.getElementById('streaming-data-chart').getContext("2d");
+  ctx.canvas.width  = window.innerWidth;
+  ctx.canvas.height = window.innerHeight*0.35;
+</script>
+
+<script src="assets/js/libs/smoothie/smoothie.js"></script>    
+
+    <!-- main application -->
+    <script src="assets/js/app.js"></script>
+    <!-- endinject -->
+</html>

@@ -1,0 +1,544 @@
+@import 'assets/css/lib/icons/material-icons.css';
+
+@font-face {
+  font-family: "Roboto";
+          src: url("assets/fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Quicksand-Bold";
+          src: url("assets/fonts/Quicksand-Bold.ttf");
+}
+
+.splash {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  padding: 3%;
+}
+
+.splash-launch {
+  background: url('assets/images/launch_image.jpg') 50% 50% no-repeat rgb(249,249,249);
+  background-size: contain;
+  display: block;
+}
+
+.splash-training {
+  background: url('assets/images/backprop.png') 50% 50% no-repeat rgb(249,249,249);
+  background-size: contain;
+  display: none;
+  opacity: 0.8;
+}
+
+.splash-load-error{
+  background-color: white;
+  display: none;
+}
+.splash-load-error img{
+  width: 100%;
+}
+.splash-load-error p{
+  width: 95%;
+  margin-bottom: 10px;
+}
+.splash-load-error h3{
+  text-align: center;
+  width:100%;
+  margin: 10px 0px 10px 0px;
+  width: 90%;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.mdl-checkbox .material-icons {
+  margin-left: 6px;
+}
+
+.mdl-radio, .mdl-checkbox, .mdl-checkbox__label, .sensitivity-label {
+  font-size: 18px;
+}
+
+.mdl-radio__label, .mdl-checkbox__label {
+  vertical-align: top;
+  line-height: 28px;
+}
+
+.getmdl-select {
+  outline: none;
+}
+
+.getmdl-select .mdl-textfield__input {
+  cursor: pointer;
+}
+
+.getmdl-select .selected {
+  background-color: #ddd;
+}
+
+.getmdl-select .mdl-icon-toggle__label {
+  float: right;
+  margin-top: -30px;
+  color: rgba(0,0,0,0.4);
+  transform: rotate(0);
+  transition: transform 0.3s;
+}
+
+.getmdl-select.is-focused .mdl-icon-toggle__label {
+  color: #3f51b5;
+  transform: rotate(180deg);
+}
+
+.getmdl-select .mdl-menu__container {
+  width: 100% !important;
+  margin-top: 2px;
+}
+
+.getmdl-select .mdl-menu__container .mdl-menu {
+  width: 100%;
+}
+
+.getmdl-select .mdl-menu__container .mdl-menu .mdl-menu__item {
+  font-size: 16px;
+}
+
+.getmdl-select__fix-height .mdl-menu__container .mdl-menu {
+  overflow-y: auto;
+  max-height: 288px !important;
+}
+
+.getmdl-select__fix-height .mdl-menu.mdl-menu--top-left {
+  bottom: auto;
+  top: 0;
+}
+
+.title-text {
+  font-family: "Quicksand-Bold", "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
+header .mdl-layout__header-row {
+  padding: 0 8px 0 8px;
+  text-align: center;
+}
+
+.mdl-card__title {
+  height: 25px;
+  padding: 10px 16px;
+}
+
+.mdl-card__supporting-text {
+  padding: 6px 9px;
+  padding-bottom: 0px;
+}
+
+.information-drawer .mdl-card__supporting-text {
+  padding: 8px 9px 8px 9px;
+}
+
+.information-drawer .mdl-card {
+  min-height: 500px;
+}
+
+.mdl-list .mdl-list__item {
+  padding: 0px;
+}
+
+.target-option-container .mdl-list .mdl-list__item {
+  padding-left: 2px;
+  display: inline-block;
+}
+
+#training-progress {
+  position: fixed;
+  width: calc(100% - 64px);
+            /* top: 10px; */
+  margin-top: 25px;
+}
+
+div.mdl-layout__drawer.information-drawer.is-visible {
+  width: 100%;
+}
+
+div.mdl-layout__drawer.information-drawer.is-visible header {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+div.mdl-layout__drawer.information-drawer.is-visible span.close-x {
+  color: red;
+  width: 20px;
+  font-weight: 800;
+}
+
+div.mdl-layout__drawer.information-drawer .mdl-card__supporting-text{
+  color: white;
+}
+div.mdl-layout__drawer.information-drawer .mdl-card__supporting-text img{
+  width: 100%;
+}
+
+#settings-ui-section, #settings-ui-section ul, #settings-ui-section ul li button {
+  width: 100%;
+}
+
+#mirrorButton .mirror-label-mirrored {
+  transform: scaleX(-1);
+  display: inline-block;
+}
+
+.mirror {
+  transform: scaleX(-1);
+}
+
+#settings-ui-section li.mirror-button {
+  height: 55px;
+}
+
+.comms-card.mdl-card__supporting-text {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.mdl-layout__tab-panel div.mdl-grid div.mdl-cell {
+  margin-top: 12px;
+  margin-bottom: 0px;
+}
+
+.mdl-layout__tab-panel div.mdl-grid div.mdl-cell.chart-container{
+  margin-top: 5px;
+}
+
+.find-device-container {
+  margin-top: -5px;
+  padding: 15px 0;
+}
+
+.icon-flipped {
+  transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+}
+
+.ui-toggles .ui-section {
+  padding-right: 0px;
+  width: 100%;
+}
+
+.hand-card.ui-buttons .sensor-option-container li {
+  min-height: 50px;
+}
+
+.hand-card .mdl-card__supporting-text {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+    /*  .sensor-option-container{
+            padding-left: 13%;
+        }  */
+.sensor-option-container ul {
+  width: 100%;
+}
+
+.sensor-option-container label.mdl-radio i.material-icons {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.sensor-option-container label.mdl-radio.is-checked i.material-icons {
+  color: #00bcd4;
+}
+
+.sensor-option-container span.sensor-type-label {
+  color: rgba(255, 193, 7, 0.8);
+  font-style: italic;
+}
+
+.data-card .mdl-card__supporting-text {
+  padding-bottom: 0px;
+  padding-top: 3px;
+}
+
+.data-option-container {
+  width: 93.75%;
+}
+
+.data-option-container .mdl-list__item-secondary-content img {
+  height: 60px;
+  margin-left: 13px;
+  width: auto;
+}
+
+body .mdl-layout__container .data-option-container li label span i.data-symbol {
+  font-style: normal !important;
+  font-size: 22px;
+}
+
+.data-option-container li label.is-checked span i.data-symbol {
+  color: #00bcd4;
+}
+
+.ui-buttons .mdl-card__supporting-text .data-option-container ul.pull-left {
+  margin-left: 5%;
+}
+
+div.ui-section.data-option-container ul.pull-right, div.ui-section.target-option-container ul li.pull-right {
+  margin-right: 10%;
+}
+
+.ui-buttons .mdl-card__supporting-text .target-option-container ul {
+}
+
+.ui-buttons .mdl-card__supporting-text .data-option-container li.mdl-list__item {
+  min-height: 30px;
+  padding: 7px 0px 7px 5px;
+}
+
+.mdl-layout__tab-panel .mdl-card__supporting-text ul li.mdl-list__item {
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+
+.mdl-layout__tab-panel .mdl-card__supporting-text ul li.mdl-list__item.send-settings {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.mdl-layout__tab-panel .neural-network-settings ul.mdl-list .mdl-list__item {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.mdl-layout__tab-panel .neural-network-settings ul.mdl-list .mdl-button {
+  min-width: 30px;
+}
+
+#clearFalseButton, #clearTrueButton {
+  padding-left: 9px;
+  padding-right: 5px;
+}
+
+/*
+#trainButton, #detectionCount, .mdl-layout__tab-panel ul.mdl-list.train-count-list {
+  width: 100%;
+}
+*/
+
+ul.train-count-list {
+  margin-top: 5px;
+  width: 100%;
+}
+
+ul.train-count-list .mdl-button{
+  width: 100%;
+}
+
+ul.train-count-list li.train-item {
+  width: calc(40% - 3px);
+  display: inline-block;
+  float: left;
+}
+
+ul.train-count-list li.count-item {
+  display: inline-block;
+  width: calc(60% - 3px);
+  float: right;
+}
+
+#getTrueButton, #getFalseButton {
+  width: calc(100% - 12px);
+  padding-left: 10px;
+  padding-right: 20px;
+  text-align: left;
+}
+
+#getTrueButton, #getFalseButton, #mirrorButton, #magnetTestButton, .mdl-layout__tab-panel .neural-network-settings ul.mdl-list .mdl-button {
+  min-height: 55px;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+#detectionCount {
+  min-height: 55px;
+  line-height: 55px;
+  vertical-align: middle;
+  padding: 0px;
+  background-color: rgba(255, 193, 7, 0.8);
+}
+
+.countButtonLabel{
+  width: 60%;
+  font-size: 20px;
+  line-height: 22px;
+  height: 100%;
+  float: left;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+.countValueLabel {
+  font-size: 38px;
+  font-weight: 600;
+  color: black;
+  display: inline-block;
+  float: right;
+  margin-right: 5px;
+}
+
+button[disabled] {
+}
+
+ul.mdl-list.get-true-list, ul.mdl-list.get-false-list {
+  width: calc(100% - 40px);
+}
+
+.neural-card.mdl-card__supporting-text ul.mdl-list li {
+  min-height: 65px;
+}
+
+.neural-card #numTrueData, .neural-card #numFalseData {
+  margin-right: 0px;
+  margin-left: -16px;
+}
+
+#numTrueData.mdl-badge[data-badge]:after, #numFalseData.mdl-badge[data-badge]:after {
+  font-size: 28px;
+  width: 48px;
+  height: 46px;
+  background-color: #3b5998;
+  top: -22px;
+}
+
+#numTrueData.mdl-badge[disabled]:after, #numFalseData.mdl-badge[disabled]:after {
+  background-color: #6b6b6b;
+}
+
+.target-card .mdl-card__supporting-text {
+  padding: 10px;
+  padding-bottom: 0px;
+  padding-top: 4px;
+}
+
+.target-card .ui-section {
+  height: 35px;
+}
+
+#mirrorButton, #magnetTestButton {
+  margin-bottom: 3px;
+  min-height: 48px;
+}
+
+.test-magnet-button {
+  margin-top: 5px;
+}
+
+.ui-toggles .mdl-checkbox__label {
+  margin-left: 6px;
+}
+
+.target-card li {
+  min-height: 50px;
+}
+
+.battery-link-icon.full {
+  color: #39ff14;
+}
+
+#streaming-data-chart {
+  width: 100%;
+  height: 400px;
+}
+
+.send-settings, #training-progress {
+  display: none;
+}
+
+#training-progress div.progressbar {
+  background-color: #39ff14;
+}
+
+#training-progress div.auxbar {
+  display: none;
+}
+
+#target-count-warning {
+  margin-left: 5%;
+        /*  color:red; */
+  display: none;
+}
+
+.mdl-card__supporting-text .target-option-container {
+  width: 94.75%;
+  margin-left: 6%;
+}
+
+.target-card .mdl-card__supporting-text .audio-list-item {
+  margin-right: 3%;
+}
+
+.target-card .mdl-card__supporting-text .target-sensitivity-container {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+header .mdl-layout__tab-bar-container, #settingsPageButton, #dataPageButton {
+  height: 42px;
+}
+
+.target-sensitivity-container p.sensitivity-label {
+  width: 100%;
+  margin-bottom: 0px;
+  text-align: center;
+}
+
+.target-sensitivity-container p.sensitivity-label span {
+  color: rgba(255, 193, 7, 0.8);
+}
+
+#info {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.footer-links a {
+  font-size: 18px;
+  color: white;
+  position: absolute;
+  bottom: 5px;
+}
+
+.matter-link {
+  left: 10px;
+}
+
+.github-link {
+  right: 10px;
+}
+
+.data-visualization {
+}
+
+@media (max-height: 590px) {
+  .data-option-container .mdl-list__item-secondary-content img {
+    height: 48px;
+    margin-left: 13px;
+  }
+
+  .target-card li {
+    min-height: 40px;
+  }
+
+  .data-card .mdl-card__supporting-text {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}

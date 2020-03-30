@@ -1,0 +1,36 @@
+{
+  "name": "corona-face-guard",
+  "version": "0.0.1",
+  "title": "Corona Face Guard",
+  "description": "This app alerts users when they touch their face using a magnetic bracelet.",
+  "tags": [
+    {
+      "label": "magnetic bracelet",
+      "type": "platform"
+    }
+  ],
+  "libraries": [
+    {
+      "name": "jquery",
+      "version": "2.1.1"
+    }
+  ],
+  "plugins": [
+    {
+      "name": "cordova-plugin-device-motion"
+    },
+    {
+      "name": "cordova-plugin-magnetometer"
+    }
+  ],
+  "index-file": "index.html",
+  "uuid": "2e26e5d7-12a5-4567-abf7-141ed3793a75",
+  "uuid_BACK": "db9579b8-5665-4dab-b3e5-66d63be47c63",
+  "icon": "app-icon.png",
+  "doc-url": "http://matter.childmind.org",
+  "long-description": "This app alerts users when they attempt to touch their face. Strong magnetic bracelet required.",
+  "cordova-id": "cmi.matter.coronafaceguard.functional",
+  "author-name": "Curt White",
+  "author-email": "curtpw@gmail.com",
+  "author-url": "http://matter.childmind.org"
+}

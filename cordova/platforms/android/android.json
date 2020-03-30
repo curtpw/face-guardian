@@ -1,0 +1,87 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "res/xml/config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"Accelerometer\"><param name=\"android-package\" value=\"org.apache.cordova.devicemotion.AccelListener\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Magnetometer\"><param name=\"android-package\" value=\"org.apache.cordova.magnetometer.Magnetometer\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "AndroidManifest.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+              "count": 1
+            }
+          ],
+          "/manifest": [
+            {
+              "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {
+    "cordova-plugin-device-motion": {
+      "PACKAGE_NAME": "com.cmi.faceguardian"
+    },
+    "cordova-plugin-magnetometer": {
+      "PACKAGE_NAME": "com.cmi.faceguardian"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "com.cmi.faceguardian"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-device-motion.Acceleration",
+      "file": "plugins/cordova-plugin-device-motion/www/Acceleration.js",
+      "pluginId": "cordova-plugin-device-motion",
+      "clobbers": [
+        "Acceleration"
+      ]
+    },
+    {
+      "id": "cordova-plugin-device-motion.accelerometer",
+      "file": "plugins/cordova-plugin-device-motion/www/accelerometer.js",
+      "pluginId": "cordova-plugin-device-motion",
+      "clobbers": [
+        "navigator.accelerometer"
+      ]
+    },
+    {
+      "id": "cordova-plugin-magnetometer.main",
+      "file": "plugins/cordova-plugin-magnetometer/www/magnetometer.js",
+      "pluginId": "cordova-plugin-magnetometer",
+      "clobbers": [
+        "cordova.plugins.magnetometer"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-device-motion": "2.0.1",
+    "cordova-plugin-magnetometer": "1.0.0",
+    "cordova-plugin-vibration": "3.1.0"
+  }
+}

@@ -1,19 +1,19 @@
 {
-  "_from": "cordova-plugin-device-motion@^2.0.1",
+  "_from": "cordova-plugin-device-motion",
   "_id": "cordova-plugin-device-motion@2.0.1",
   "_inBundle": false,
   "_integrity": "sha1-f22XTE64/Frljpqt1j2fpQLt7G0=",
   "_location": "/cordova-plugin-device-motion",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "tag",
     "registry": true,
-    "raw": "cordova-plugin-device-motion@^2.0.1",
+    "raw": "cordova-plugin-device-motion",
     "name": "cordova-plugin-device-motion",
     "escapedName": "cordova-plugin-device-motion",
-    "rawSpec": "^2.0.1",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "^2.0.1"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER",
@@ -21,8 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-device-motion/-/cordova-plugin-device-motion-2.0.1.tgz",
   "_shasum": "7f6d974c4eb8fc5ae58e9aadd63d9fa502edec6d",
-  "_spec": "cordova-plugin-device-motion@^2.0.1",
-  "_where": "C:\\Users\\Curt\\corona_face_project",
+  "_spec": "cordova-plugin-device-motion",
+  "_where": "C:\\Users\\Curt\\TingleProject",
   "author": {
     "name": "Apache Software Foundation"
   },

@@ -1,0 +1,10 @@
+{
+  "cordova-plugin-device-motion": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device-motion@^2.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  }
+}
