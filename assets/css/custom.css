@@ -10,26 +10,45 @@
           src: url("../fonts/Quicksand-Bold.ttf");
 }
 
-.loader {
+.splash {
   position: fixed;
   left: 0px;
   top: 0px;
   width: 100%;
   height: 100%;
   z-index: 9999;
+  padding: 3%;
 }
 
-.loader-launch {
-  background: url('../images/launch_image.png') 50% 50% no-repeat rgb(249,249,249);
+.splash-launch {
+  background: url('../images/launch_image.jpg') 50% 50% no-repeat rgb(249,249,249);
   background-size: contain;
   display: block;
 }
 
-.loader-training {
+.splash-training {
   background: url('../images/backprop.png') 50% 50% no-repeat rgb(249,249,249);
   background-size: contain;
   display: none;
   opacity: 0.8;
+}
+
+.splash-load-error{
+  background-color: white;
+  display: none;
+}
+.splash-load-error img{
+  width: 100%;
+}
+.splash-load-error p{
+  width: 95%;
+  margin-bottom: 10px;
+}
+.splash-load-error h3{
+  text-align: center;
+  width:100%;
+  margin: 10px 0px 10px 0px;
+  width: 90%;
 }
 
 .clearfix:after {
@@ -158,6 +177,10 @@ div.mdl-layout__drawer.information-drawer.is-visible span.close-x {
   color: red;
   width: 20px;
   font-weight: 800;
+}
+
+div.mdl-layout__drawer.information-drawer .mdl-card__supporting-text{
+  color: white;
 }
 
 #settings-ui-section, #settings-ui-section ul, #settings-ui-section ul li button {
@@ -297,20 +320,30 @@ div.ui-section.data-option-container ul.pull-right, div.ui-section.target-option
   padding-right: 5px;
 }
 
+/*
 #trainButton, #detectionCount, .mdl-layout__tab-panel ul.mdl-list.train-count-list {
   width: 100%;
 }
+*/
 
-ul.mdl-list.train-count-list {
+ul.train-count-list {
   margin-top: 5px;
+  width: 100%;
 }
 
-ul.train-count-list li.mdl-list__item {
-  width: calc(50% - 3px);
+ul.train-count-list .mdl-button{
+  width: 100%;
+}
+
+ul.train-count-list li.train-item {
+  width: calc(40% - 3px);
   display: inline-block;
+  float: left;
 }
 
-ul.train-count-list li:nth-child(2) {
+ul.train-count-list li.count-item {
+  display: inline-block;
+  width: calc(60% - 3px);
   float: right;
 }
 
@@ -334,12 +367,23 @@ ul.train-count-list li:nth-child(2) {
   background-color: rgba(255, 193, 7, 0.8);
 }
 
+.countButtonLabel{
+  width: 60%;
+  font-size: 20px;
+  line-height: 22px;
+  height: 100%;
+  float: left;
+  margin-top: 5px;
+  display: inline-block;
+}
+
 .countValueLabel {
   font-size: 38px;
   font-weight: 600;
   color: black;
+  display: inline-block;
   float: right;
-  margin-right: 17%;
+  margin-right: 5px;
 }
 
 button[disabled] {

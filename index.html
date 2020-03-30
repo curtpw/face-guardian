@@ -1,6 +1,8 @@
 <!doctype html>
 
-<!-- ***** Corona Face Guard Face Touch Detection App ***** -->
+<!-- ***** Face Guardian ***** -->
+<!-- Curt White @ Child Mind Institute MATTER Lab https://matter.childmind.org/ -->
+<!-- code: https://github.com/curtpw/face-guardian -->
 
 <html>
 <head>
@@ -40,10 +42,19 @@
 </head>
 
 <body ontouchstart="" onload="initGenericSensorAPI();"><!-- ontouchstart="" enables low-delay CSS transitions. -->
+  <!--  <body ontouchstart="" > -->
 
 <!-- overlays for launch and neural network model training -->
-<div class="loader-launch loader"></div>
-<div class="loader-training loader"></div>
+<div class="splash-launch splash"></div>
+<div class="splash-training splash"></div>
+<div class="splash-load-error splash mdl-layout">
+    <h3>ERROR</h3>
+    <p><b>1:</b> You must use a mobile device with an accelerometer (tilt sensor) and magnetometer (compass).</p><br/>
+    <p><b>2:</b> We recommend using the Chrome web browser. However, you have to ENABLE SENSORS IN CHROME FLAGS. Cut and paste the following address: chrome://flags/#enable-generic-sensor-extra-classes then enable "Generic Sensor" as well as "Generic Sensor Extra Classes" flags</p>
+    <img src="/assets/images/chrome-flags.jpg" alt="chrome flags"><br/>
+    <p><b>About Face Guardian</b>: Face touching is one of the primary ways coronavirus is spread. This app lets you use your phone's compass and a magnet on your wrist to detect face touching. It is designed to increase awareness of face touching or outright prevent it. Face Guardian is a <a href="https://matter.childmind.org/" target="_blank">CMI MATTER Lab project</a> .</p>
+    <p><b>Developer?</b> This project <a href="https://github.com/curtpw/face-guardian" target="_blank">welcomes contributors</a>.</p>
+</div>
 
 <!-- <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header mdl-layout--fixed-tabs"> -->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
@@ -64,14 +75,13 @@
         <div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
             <div class="mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__supporting-text">
-<h3>Tutorial coming soon</h3>
-<h2>BASIC USE</h2>
-<p>1) Wear smartphone around the neck as close to the face (high up) as is comfortable.</p>
-<p>2) Wear a strong magnet on one or both wrists.</p>
-<p>3) Use a mirror to view phone (press "MIRROR") or use a webcam to view phone.</p>
-<p>4) Press "ADD OFF TARGET" while wrist(s) is *away* from face. Wait for 100 samples to collect.</p>
-<p>5) Touch (clean) hand to face in a naturalistic manner so that magnet approaches phone. Press "ADD ON TARGET" while your hand is touching the face. Move hand around to different positions on your face as 100 data samples are collected. You want to capture as many possible face touching gestures as possible.</p>
-<p>6) Once 100 samples of on and off-target data are collected an LSTM (Long Short-Term Memory) RNN (Recursive Neural Network) model will be trained to classify (detect) the face touching gestures captured in the "on target" training data.</p>
+<h3>BASIC USE</h3>
+<p><b>1:</b> Wear smartphone around the neck as close to the face (high up) as is comfortable.</p>
+<p><b>2:</b> Wear a strong magnet on one or both wrists.</p>
+<p><b>3:</b> Use a mirror to view phone (press "MIRROR") or use a webcam to view phone.</p>
+<p><b>4:</b> Press "ADD OFF TARGET" while wrist(s) is *away* from face. Wait for 100 samples to collect.</p>
+<p><b>5:</b> Touch (clean) hand to face in a naturalistic manner so that magnet approaches phone. Press "ADD ON TARGET" while your hand is touching the face. Move hand around to different positions on your face as 100 data samples are collected. You want to capture as many possible face touching gestures as possible.</p>
+<p><b>6:</b> Once 100 samples of on and off-target data are collected an LSTM (Long Short-Term Memory) RNN (Recursive Neural Network) model will be trained to classify (detect) the face touching gestures captured in the "on target" training data.</p>
 <br/>
 <h2>SETTINGS</h2>
 <p>*You can toggle vibration and audio alerts in the settings page.</p><br/>
@@ -297,17 +307,17 @@
 
                         <div class="ui-section pull-left"> 
                             <ul class="mdl-list pull-left train-count-list">
-                                <li class="mdl-list__item">
+                                <li class="mdl-list__item train-item">
                                     <button id="trainButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored-yellow" onclick="app.onTrainButton()"  disabled>
                                         <i class="material-icons">school</i>
                                         Train
                                         <div class="mdl-layout-spacer"></div>
                                     </button>
                                 </li>
-                                <li class="mdl-list__item">
+                                <li class="mdl-list__item count-item">
                                     <div id="detectionCount" class="mdl-button">
-                                        TOUCH COUNT
-                                        <span class="countValueLabel">0</span>
+                                        <div class="countButtonLabel">TOUCH COUNT</div>
+                                        <div class="countValueLabel">0</div>
                                         <div class="mdl-layout-spacer"></div>
                                     </div>
                                 </li> 

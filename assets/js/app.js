@@ -128,12 +128,19 @@ app.neuralNet = new app.Architect.LSTM(1, 1, 1, 1); //this will be redefined lat
  *************************************************************
  ************************************************************/
 function initGenericSensorAPI() {
+
+	//error splash
+	var errorSplash = document.querySelector('.splash-load-error');
+
     navigator.permissions.query({
             name: 'accelerometer'
         })
         .then(result => {
             if (result.state === 'denied') {
                 console.log('Permission to use accelerometer sensor is denied.');
+
+                //display error splash screen
+                errorSplash.style.display = 'block';
                 return;
             }
             // Use the sensor.
@@ -141,7 +148,7 @@ function initGenericSensorAPI() {
             let accelerometer = null;
             try {
                 accelerometer = new Accelerometer({
-                    frequency: 60,
+                    frequency: 10,
                     referenceFrame: 'device'
                 });
                 accelerometer.addEventListener('error', event => {
@@ -149,8 +156,15 @@ function initGenericSensorAPI() {
                     if (event.error.name === 'NotAllowedError') {
                         // Branch to code for requesting permission.
                         console.log('Branch to code for requesting accelerometer permission.');
+
+                        //display error splash screen
+                		errorSplash.style.display = 'block';
+
                     } else if (event.error.name === 'NotReadableError accelerometer') {
                         console.log('Cannot connect to the accelerometer sensor.');
+
+                        //display error splash screen
+                		errorSplash.style.display = 'block';
                     }
                 });
                 // accelerometer.addEventListener('reading', () => reloadOnShake(accelerometer));
@@ -166,8 +180,16 @@ function initGenericSensorAPI() {
                 if (error.name === 'SecurityError') {
                     // See the note above about feature policy.
                     console.log('Accelerometer sensor construction was blocked by a feature policy or permission.');
+
+                    //display error splash screen
+                	errorSplash.style.display = 'block';
+
                 } else if (error.name === 'ReferenceError') {
                     console.log('Accelerometer sensor is not supported by the User Agent.');
+
+                    //display error splash screen
+                	errorSplash.style.display = 'block';
+
                 } else {
                     console.log('Accelerometer throw error');
                     throw error;
@@ -181,6 +203,10 @@ function initGenericSensorAPI() {
         .then(result => {
             if (result.state === 'denied') {
                 console.log('Permission to use magnetometer sensor is denied.');
+
+                //display error splash screen
+                errorSplash.style.display = 'block';
+
                 return;
             }
             // Use the sensor.
@@ -188,7 +214,7 @@ function initGenericSensorAPI() {
             let magnetometer = null;
             try {
                 magnetometer = new Magnetometer({
-                    frequency: 60,
+                    frequency: 10,
                     referenceFrame: 'device'
                 });
                 magnetometer.addEventListener('error', event => {
@@ -196,8 +222,15 @@ function initGenericSensorAPI() {
                     if (event.error.name === 'NotAllowedError') {
                         // Branch to code for requesting permission.
                         console.log('Branch to code for requesting magnetometer permission.');
+
+                        //display error splash screen
+                		errorSplash.style.display = 'block';
+
                     } else if (event.error.name === 'NotReadableError') {
                         console.log('Cannot connect to the magnetometer sensor.');
+
+                        //display error splash screen
+                		errorSplash.style.display = 'block';
                     }
                 });
                 //  magnetometer.addEventListener('reading', () => reloadOnShake(magnetometer));
@@ -213,8 +246,15 @@ function initGenericSensorAPI() {
                 if (error.name === 'SecurityError') {
                     // See the note above about feature policy.
                     console.log('magnetometer Sensor construction was blocked by a feature policy or permission.');
+
+                    //display error splash screen
+                	errorSplash.style.display = 'block';
+
                 } else if (error.name === 'ReferenceError') {
                     console.log('magnetometer Sensor is not supported by the User Agent.');
+
+                    //display error splash screen
+                	errorSplash.style.display = 'block';
                 } else {
                     console.log('magnetometer throw error');
                     throw error;
@@ -286,7 +326,7 @@ app.initialize = function() {
         }, app.sampleRate);
 
         //hide launch overlay
-        $(".loader-launch").delay(3000).fadeOut(300);
+        $(".splash-launch").delay(3000).fadeOut(300);
 
     });
 };
@@ -387,14 +427,14 @@ function detectionModel() {
         if (app.trainFlag == false) {
             //  console.log("MagX: " + app.lastMagReading.x + "\tMagY: " + app.lastMagReading.y + "\tMagZ: " + app.lastMagReading.z + "\tMagS: " + app.lastMagReading.magnitude);
             //  console.log("MagAvX: " + app.magAv[0] + "\tMagAvY: " + app.magAv[1] + "\tMagAvZ: " + app.magAv[2]);
-            console.log("magNormalX: " + app.magNormal[0] + "\tmagNormalY: " + app.magNormal[1] + "\tmagNormalZ: " + app.magNormal[2]);
-            console.log("magDeltaX: " + app.magDelta[0] + "\tmagDeltaY: " + app.magDelta[1] + "\tmagDeltaZ: " + app.magDelta[2]);
+            //  console.log("magNormalX: " + app.magNormal[0] + "\tmagNormalY: " + app.magNormal[1] + "\tmagNormalZ: " + app.magNormal[2]);
+            //  console.log("magDeltaX: " + app.magDelta[0] + "\tmagDeltaY: " + app.magDelta[1] + "\tmagDeltaZ: " + app.magDelta[2]);
 
             var acc = [app.lastAccReading.x, app.lastAccReading.y, app.lastAccReading.z];
             var pitch = (180 / 3.141592) * (Math.atan2(acc[0], Math.sqrt(acc[1] * acc[1] + acc[2] * acc[2])));
             var roll = (180 / 3.141592) * (Math.atan2(-acc[1], -acc[2]));
 
-            console.log("pitch: " + pitch + "\troll: " + roll);
+            //  console.log("pitch: " + pitch + "\troll: " + roll);
 
             //select data type for processing
             var values = new Array();
@@ -657,7 +697,7 @@ function detectionModel() {
             var numScheduleInterval = 100;
 
             //display training spinner overlay
-            $(".loader-training").show();
+            $(".splash-training").show();
 
             //timeout allows training splash screen to load
             setTimeout(function() {
@@ -743,20 +783,20 @@ function processData() {
 
 
         //find averages from historical data
-        var app.magAvTempX = [];
-        var app.magAvTempY = [];
-        var app.magAvTempZ = [];
+        var magAvTempX = [];
+        var magAvTempY = [];
+        var magAvTempZ = [];
         for (var i = 0; i < app.magHistory.length; i++) {
-            app.magAvTempX.push(app.magHistory[i].x);
-            app.magAvTempY.push(app.magHistory[i].y);
-            app.magAvTempZ.push(app.magHistory[i].z);
+            magAvTempX.push(app.magHistory[i].x);
+            magAvTempY.push(app.magHistory[i].y);
+            magAvTempZ.push(app.magHistory[i].z);
         }
 
 		if (app.magHistory.length > 5) {
 
-	        app.magAv[0] = app.magAvTempX.reduce((previous, current) => current += previous) / app.magAvTempX.length;
-	        app.magAv[1] = app.magAvTempY.reduce((previous, current) => current += previous) / app.magAvTempX.length;
-	        app.magAv[2] = app.magAvTempZ.reduce((previous, current) => current += previous) / app.magAvTempX.length;
+	        app.magAv[0] = magAvTempX.reduce((previous, current) => current += previous) / magAvTempX.length;
+	        app.magAv[1] = magAvTempY.reduce((previous, current) => current += previous) / magAvTempX.length;
+	        app.magAv[2] = magAvTempZ.reduce((previous, current) => current += previous) / magAvTempX.length;
 
 	        //smooth and normalize for neural network model
 	        app.magNormal[0] = (Math.min(Math.max((app.magHistory[0].x + app.magHistory[1].x + app.magHistory[2].x) / 3, -179), 179) + 180) / 360;
@@ -764,13 +804,13 @@ function processData() {
 	        app.magNormal[2] = (Math.min(Math.max((app.magHistory[0].z + app.magHistory[1].z + app.magHistory[2].z) / 3, -179), 179) + 180) / 360;
 
             //find averages using oldest 1/3 of app.magHistory data
-            var app.magAvDelayedTempX = app.magAvTempX.slice(Math.round(magAvTempX.length / 1.5), app.magAvTempX.length);
-            var app.magAvDelayedTempY = app.magAvTempY.slice(Math.round(magAvTempY.length / 1.5), app.magAvTempY.length);
-            var app.magAvDelayedTempZ = app.magAvTempZ.slice(Math.round(magAvTempZ.length / 1.5), app.magAvTempZ.length);
+            var magAvDelayedTempX = magAvTempX.slice(Math.round(magAvTempX.length / 1.5), magAvTempX.length);
+            var magAvDelayedTempY = magAvTempY.slice(Math.round(magAvTempY.length / 1.5), magAvTempY.length);
+            var magAvDelayedTempZ = magAvTempZ.slice(Math.round(magAvTempZ.length / 1.5), magAvTempZ.length);
 
-            app.magAvDelayed[0] = app.magAvDelayedTempX.reduce((previous, current) => current += previous) / app.magAvDelayedTempX.length;
-            app.magAvDelayed[1] = app.magAvDelayedTempY.reduce((previous, current) => current += previous) / app.magAvDelayedTempY.length;
-            app.magAvDelayed[2] = app.magAvDelayedTempZ.reduce((previous, current) => current += previous) / app.magAvDelayedTempZ.length;
+            app.magAvDelayed[0] = magAvDelayedTempX.reduce((previous, current) => current += previous) / magAvDelayedTempX.length;
+            app.magAvDelayed[1] = magAvDelayedTempY.reduce((previous, current) => current += previous) / magAvDelayedTempY.length;
+            app.magAvDelayed[2] = magAvDelayedTempZ.reduce((previous, current) => current += previous) / magAvDelayedTempZ.length;
 
             // ***** delta values using differnce between current values and delayed averages
             //USING ABSOLUTE VALUE: abs( current[0 to 1] - old[0 to 1])
@@ -781,9 +821,9 @@ function processData() {
             */
 
             //USING ADD AND DIVIDE: ( current[0 to 1] - old[0 to 1] + 1) / 2
-            app.magDelta[0] = (magNormal[0] - (Math.min(Math.max(magAvDelayed[0], -179), 179) + 180) / 360 + 1) / 2;
-            app.magDelta[1] = (magNormal[1] - (Math.min(Math.max(magAvDelayed[1], -179), 179) + 180) / 360 + 1) / 2;
-            app.magDelta[2] = (magNormal[2] - (Math.min(Math.max(magAvDelayed[2], -179), 179) + 180) / 360 + 1) / 2;
+            app.magDelta[0] = (app.magNormal[0] - (Math.min(Math.max(app.magAvDelayed[0], -179), 179) + 180) / 360 + 1) / 2;
+            app.magDelta[1] = (app.magNormal[1] - (Math.min(Math.max(app.magAvDelayed[1], -179), 179) + 180) / 360 + 1) / 2;
+            app.magDelta[2] = (app.magNormal[2] - (Math.min(Math.max(app.magAvDelayed[2], -179), 179) + 180) / 360 + 1) / 2;
         }
 
     }
@@ -1032,7 +1072,7 @@ app.respondCanvas = function() {
  */
 app.showInfo = function(info) {
     document.getElementById('info').innerHTML = info;
-    console.log(info);
+    // console.log(info);
 };
 
 
